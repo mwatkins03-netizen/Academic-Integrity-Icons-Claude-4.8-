@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UM Academic Integrity Icons &middot; Assignment Guidelines Builder</title>
+<meta name="description" content="University of Mississippi academic integrity icons for assignments. Build a copy-paste badge set for Blackboard. AI guidance based on the AI Assessment Scale (AIAS).">
+<style>
+  :root{
+    --navy:#14213D;      /* Oxford navy */
+    --red:#CE1126;       /* Lyceum red */
+    --powder:#006BA6;    /* secondary */
+    --ink:#1f2733;
+    --muted:#5b6573;
+    --line:#e4e7ec;
+    --bg:#f4f5f7;
+    --card:#ffffff;
+    --yes:#1E7A46;
+    --no:#CE1126;
+    --cond:#C8852A;
+    --info:#475569;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5}
+  a{color:var(--powder)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+  /* Brand bar */
+  header.brand{background:var(--navy);color:#fff;border-bottom:5px solid var(--red)}
+  header.brand .wrap{display:flex;align-items:center;gap:16px;padding:18px 20px}
+  .crest{flex:0 0 auto}
+  header.brand h1{font-size:20px;margin:0;font-weight:700;letter-spacing:.2px}
+  header.brand p{margin:2px 0 0;font-size:13px;color:#c7d0dd}
+
+  /* Tabs */
+  nav.tabs{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+  nav.tabs .wrap{display:flex;gap:4px;padding:0 20px}
+  nav.tabs button{appearance:none;border:0;background:none;padding:14px 16px;font-size:15px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent}
+  nav.tabs button:hover{color:var(--navy)}
+  nav.tabs button.active{color:var(--navy);border-bottom-color:var(--red)}
+
+  main{padding:26px 0 70px}
+  .panel{display:none}
+  .panel.active{display:block}
+  h2.section{font-size:22px;color:var(--navy);margin:0 0 6px}
+  p.lead{color:var(--muted);margin:0 0 22px;max-width:760px}
+
+  /* Builder layout */
+  .builder{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;align-items:start}
+  @media (max-width:880px){.builder{grid-template-columns:1fr}}
+
+  .cat-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:14px}
+  .cat-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+  .cat-head .mini{flex:0 0 auto}
+  .cat-head .t{flex:1}
+  .cat-head .t b{display:block;font-size:15px;color:var(--navy)}
+  .cat-head .t span{font-size:12.5px;color:var(--muted)}
+  .toggle{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--muted);cursor:pointer;user-select:none}
+  .toggle input{width:16px;height:16px;accent-color:var(--navy)}
+  .pills{display:flex;flex-wrap:wrap;gap:7px}
+  .pill{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;font-size:13px;color:var(--ink);cursor:pointer;transition:.12s}
+  .pill:hover{border-color:#b9c1cd}
+  .pill.sel{border-color:var(--navy);background:var(--navy);color:#fff}
+  .cat-card.off{opacity:.5}
+  .cat-card.off .pills{pointer-events:none}
+
+  /* AIAS pills colored */
+  .pill.ai.sel{border-color:transparent;color:#fff}
+
+  /* Preview side */
+  .sticky{position:sticky;top:70px}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:5px}
+  .field input{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;font-size:14px}
+  .preview-card{border:2px solid var(--navy);border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 6px 22px rgba(20,33,61,.08)}
+  .preview-card .pc-head{background:var(--navy);color:#fff;padding:12px 16px;font-weight:700;font-size:16px;display:flex;align-items:center;gap:10px}
+  .preview-card .pc-body{padding:6px 16px 12px}
+  .pc-foot{background:#f8f8f8;color:#7b8493;font-size:11px;padding:8px 16px;border-top:1px solid var(--line)}
+  .row{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
+  .row:last-child{border-bottom:0}
+  .row .b{flex:0 0 auto}
+  .row .txt b{display:block;color:var(--navy);font-size:14.5px}
+  .row .txt .st{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+  .row .txt p{margin:3px 0 0;font-size:13.5px;color:#3a4250}
+  .empty{padding:30px;text-align:center;color:var(--muted);border:2px dashed var(--line);border-radius:12px}
+
+  .actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  .btn{appearance:none;border:0;border-radius:8px;padding:11px 16px;font-size:14px;font-weight:600;cursor:pointer}
+  .btn.primary{background:var(--navy);color:#fff}
+  .btn.primary:hover{background:#1d2e52}
+  .btn.ghost{background:#fff;border:1.5px solid var(--line);color:var(--navy)}
+  .btn.ghost:hover{border-color:#b9c1cd}
+  textarea.code{width:100%;margin-top:14px;height:150px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;border:1px solid var(--line);border-radius:8px;padding:10px;color:#374151;background:#fbfbfc}
+  .hint{font-size:12px;color:var(--muted);margin-top:6px}
+
+  /* Reference */
+  .ref-cat{margin:0 0 30px}
+  .ref-cat h3{font-size:16px;color:var(--navy);margin:0 0 4px;display:flex;align-items:center;gap:10px}
+  .ref-cat .desc{font-size:13px;color:var(--muted);margin:0 0 14px}
+  .ref-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+  .ref-item{border:1px solid var(--line);border-radius:10px;background:#fff;padding:14px;text-align:center}
+  .ref-item .lab{font-weight:700;color:var(--navy);font-size:13.5px;margin-top:8px}
+  .ref-item .st{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+  .ref-item p{font-size:12px;color:#475063;margin:6px 0 8px}
+  .dl{font-size:11.5px;font-weight:600;color:var(--powder);background:none;border:0;cursor:pointer;padding:0}
+  .dl:hover{text-decoration:underline}
+
+  /* How to use */
+  .howto{max-width:820px}
+  .howto h3{color:var(--navy);margin:26px 0 8px}
+  .howto ol{padding-left:20px}
+  .howto li{margin:7px 0}
+  .howto code,.howto kbd{background:#eef1f4;border-radius:4px;padding:1px 6px;font-size:13px}
+  .callout{background:#eef4f8;border-left:4px solid var(--powder);padding:12px 16px;border-radius:6px;margin:14px 0;font-size:14px}
+  footer{border-top:1px solid var(--line);background:#fff;color:var(--muted);font-size:12.5px}
+  footer .wrap{padding:18px 20px}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin:0 0 22px}
+  .legend span{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--ink)}
+  .dot{width:14px;height:14px;border-radius:4px;display:inline-block}
+</style>
+</head>
+<body>
+<header class="brand">
+  <div class="wrap">
+    <div class="crest" aria-hidden="true">
+      <svg width="46" height="46" viewBox="0 0 100 100">
+        <rect x="4" y="4" width="92" height="92" rx="18" fill="#fff"/>
+        <rect x="4" y="4" width="92" height="92" rx="18" fill="none" stroke="#CE1126" stroke-width="5"/>
+        <text x="50" y="64" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-weight="700" font-size="38" fill="#14213D">UM</text>
+      </svg>
+    </div>
+    <div>
+      <h1>Academic Integrity Icons</h1>
+      <p>University of Mississippi &middot; assignment guidance for Blackboard &middot; AI guidance via the AI Assessment Scale</p>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="wrap">
+    <button data-tab="build" class="active">Build a Badge Set</button>
+    <button data-tab="reference">Icon Reference</button>
+    <button data-tab="howto">How to Use</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- ============ BUILD ============ -->
+  <section class="panel active" id="build">
+    <h2 class="section">Build a badge set for your assignment</h2>
+    <p class="lead">Pick what's allowed for each category. Toggle off anything that doesn't apply. The live preview on the right updates instantly &mdash; then copy the HTML into Blackboard or download it as a file.</p>
+
+    <div class="builder">
+      <div id="cat-list"><!-- category cards injected --></div>
+
+      <div>
+        <div class="sticky">
+          <div class="field">
+            <label for="aname">Assignment / activity name (optional)</label>
+            <input id="aname" type="text" placeholder="e.g. Essay 2: Rhetorical Analysis">
+          </div>
+          <div class="preview-card" id="previewCard"></div>
+          <div class="actions">
+            <button class="btn primary" id="copyBtn">Copy HTML for Blackboard</button>
+            <button class="btn ghost" id="dlBtn">Download as .html</button>
+            <button class="btn ghost" id="pngBtn">Download as image (PNG)</button>
+          </div>
+          <textarea class="code" id="codeOut" readonly aria-label="Generated HTML"></textarea>
+          <p class="hint">Paste using Blackboard's <b>HTML / source-code</b> button (the <code>&lt;&gt;</code> icon) in any Item, Document, or Description editor. The snippet is fully self-contained &mdash; no links or scripts.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ REFERENCE ============ -->
+  <section class="panel" id="reference">
+    <h2 class="section">Full icon reference</h2>
+    <p class="lead">Every category and every nuance state. Click <b>Download SVG</b> on any badge to grab a crisp, scalable file for slides, syllabi, or print.</p>
+    <div class="legend">
+      <span><i class="dot" style="background:var(--yes)"></i> Permitted</span>
+      <span><i class="dot" style="background:var(--cond)"></i> Conditions apply</span>
+      <span><i class="dot" style="background:var(--no)"></i> Not permitted</span>
+      <span><i class="dot" style="background:var(--info)"></i> Format / structure</span>
+      <span><i class="dot" style="background:linear-gradient(90deg,#8C2A33,#2C6E8F)"></i> AIAS levels 1&ndash;5</span>
+    </div>
+    <div id="ref-list"></div>
+  </section>
+
+  <!-- ============ HOWTO ============ -->
+  <section class="panel" id="howto">
+    <h2 class="section">How to use these icons</h2>
+    <div class="howto">
+      <h3>Option A &mdash; Paste into Blackboard (fastest)</h3>
+      <ol>
+        <li>Build your set on the <b>Build a Badge Set</b> tab and click <b>Copy HTML for Blackboard</b>.</li>
+        <li>In your course, create or edit an <b>Item / Document</b> (or an assignment's Description).</li>
+        <li>In the content editor toolbar, click the <b>source code</b> button &mdash; the <code>&lt;&gt;</code> icon (in Ultra it's under the <kbd>+</kbd> / &ldquo;Insert/Edit HTML&rdquo; menu).</li>
+        <li><b>Paste</b> the HTML and save. The badges render inline with your assignment.</li>
+      </ol>
+      <div class="callout">The pasted snippet uses only inline styles and inline SVG &mdash; no external files, fonts, or JavaScript &mdash; so it survives Blackboard's HTML sanitizer on both <b>Original</b> and <b>Ultra</b>.</div>
+
+      <h3>Option B &mdash; Import the SCORM package</h3>
+      <ol>
+        <li>Download <code>olemiss-integrity-icons-scorm.zip</code> (provided with this package).</li>
+        <li>In your course: <b>Build Content &rarr; Content Package (SCORM)</b> (Original) or <b>Content &rarr; Upload &rarr; SCORM</b> (Ultra).</li>
+        <li>Upload the zip and accept the defaults. It appears as an interactive item students can open.</li>
+      </ol>
+
+      <h3>Option C &mdash; Host the whole site on GitHub Pages</h3>
+      <ol>
+        <li>Create a new GitHub repository and upload this folder's contents (keep <code>index.html</code> at the root).</li>
+        <li>Repo <b>Settings &rarr; Pages</b>, set <b>Source</b> to <code>main</code> branch / <code>/ (root)</code>, save.</li>
+        <li>Your live builder publishes at <code>https://&lt;username&gt;.github.io/&lt;repo&gt;/</code> &mdash; share it with faculty.</li>
+      </ol>
+
+      <h3>Attribution</h3>
+      <p>The AI category mirrors the <a href="https://aiassessmentscale.com/" target="_blank" rel="noopener">AI Assessment Scale (AIAS)</a> by Perkins, Furze, Roe &amp; MacVaugh, used under <b>CC BY-NC-SA 4.0</b>. Keep the attribution line that appears at the bottom of every generated badge set.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    University of Mississippi &middot; Academic Integrity Icons &mdash; a faculty resource for clear assignment expectations.
+    AI guidance adapted from the AI Assessment Scale (AIAS), CC BY-NC-SA 4.0.
+  </div>
+</footer>
+
+<script>
+/* ---------------- Glyphs (24x24 design space, white) ---------------- */
+const G = {
+  help:`<circle cx="12" cy="12" r="9" fill="none" stroke="#fff" stroke-width="2"/>
+        <circle cx="12" cy="12" r="3.4" fill="none" stroke="#fff" stroke-width="2"/>
+        <line x1="12" y1="3" x2="12" y2="8.6" stroke="#fff" stroke-width="2"/>
+        <line x1="12" y1="15.4" x2="12" y2="21" stroke="#fff" stroke-width="2"/>
+        <line x1="3" y1="12" x2="8.6" y2="12" stroke="#fff" stroke-width="2"/>
+        <line x1="15.4" y1="12" x2="21" y2="12" stroke="#fff" stroke-width="2"/>`,
+  collab:`<circle cx="8.4" cy="8" r="3" fill="none" stroke="#fff" stroke-width="2"/>
+          <circle cx="15.6" cy="8" r="3" fill="none" stroke="#fff" stroke-width="2"/>
+          <path d="M3.4 19c0-3 2.3-5 5-5 1.4 0 2.7.5 3.6 1.4" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+          <path d="M12 15.4c.9-.9 2.2-1.4 3.6-1.4 2.7 0 5 2 5 5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>`,
+  reuse:`<rect x="4.5" y="3" width="11" height="14" rx="2" fill="none" stroke="#fff" stroke-width="2"/>
+         <rect x="8.5" y="7" width="11" height="14" rx="2" fill="var(--tile)" stroke="#fff" stroke-width="2"/>
+         <line x1="11" y1="12" x2="17" y2="12" stroke="#fff" stroke-width="1.6"/>
+         <line x1="11" y1="15.4" x2="17" y2="15.4" stroke="#fff" stroke-width="1.6"/>`,
+  research:`<path d="M12 6.2C10 4.7 6.8 4.2 4 4.7V18c2.8-.5 6 0 8 1.5 2-1.5 5.2-2 8-1.5V4.7C17.2 4.2 14 4.7 12 6.2z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+            <line x1="12" y1="6.2" x2="12" y2="19.5" stroke="#fff" stroke-width="2"/>`,
+  home:`<path d="M3.8 11.2 12 5l8.2 6.2" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M6 10.2V19h12v-8.8" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+        <rect x="10" y="13.2" width="4" height="5.8" fill="none" stroke="#fff" stroke-width="1.6"/>`,
+  ai:`<text x="12" y="16.4" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="12.5" fill="#fff">AI</text>`,
+  cite:`<path d="M5.5 8h4.2v5c0 2.1-1.6 3.7-4.2 4.2v-2.1c1.3-.4 2.1-1.2 2.1-2.2H5.5z" fill="#fff"/>
+        <path d="M14.3 8h4.2v5c0 2.1-1.6 3.7-4.2 4.2v-2.1c1.3-.4 2.1-1.2 2.1-2.2h-2.1z" fill="#fff"/>`,
+  mode:`<circle cx="12" cy="8" r="3.2" fill="none" stroke="#fff" stroke-width="2"/>
+        <path d="M5.5 19c0-3.6 3-6 6.5-6s6.5 2.4 6.5 6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>`,
+  device:`<rect x="6" y="3" width="12" height="18" rx="2" fill="none" stroke="#fff" stroke-width="2"/>
+          <rect x="8.4" y="5.4" width="7.2" height="3.4" rx="0.6" fill="none" stroke="#fff" stroke-width="1.4"/>
+          <circle cx="9" cy="12.4" r="0.95" fill="#fff"/><circle cx="12" cy="12.4" r="0.95" fill="#fff"/><circle cx="15" cy="12.4" r="0.95" fill="#fff"/>
+          <circle cx="9" cy="15.6" r="0.95" fill="#fff"/><circle cx="12" cy="15.6" r="0.95" fill="#fff"/><circle cx="15" cy="15.6" r="0.95" fill="#fff"/>
+          <circle cx="9" cy="18.8" r="0.95" fill="#fff"/><circle cx="12" cy="18.8" r="0.95" fill="#fff"/><circle cx="15" cy="18.8" r="0.95" fill="#fff"/>`
+};
+
+const STATUS = {
+  yes:  {color:'#1E7A46', label:'Permitted'},
+  no:   {color:'#CE1126', label:'Not permitted'},
+  cond: {color:'#C8852A', label:'Conditions apply'},
+  info: {color:'#475569', label:'Format'}
+};
+const AIAS_COLORS = ['#8C2A33','#C25A2B','#A9852C','#2E7D5B','#2C6E8F'];
+
+/* ---------------- Category + nuance data ---------------- */
+const CAT = [
+  {id:'help', label:'Getting Help', sub:'Who you may ask', glyph:G.help, options:[
+    {id:'none', short:'No outside help', status:'no',   text:'Getting help is not permitted. Submit only your own independent work.'},
+    {id:'instr', short:'Instructor only', status:'cond', text:'You may seek clarification from the instructor only.'},
+    {id:'center', short:'Tutoring / writing center', status:'cond', text:'Help from official tutoring or the writing center is permitted.'},
+    {id:'peers', short:'Peers OK', status:'cond', text:'You may discuss with classmates, but the work you submit must be your own.'},
+    {id:'any', short:'Any source', status:'yes', text:'You may get help from any source.'}
+  ]},
+  {id:'collab', label:'Collaboration', sub:'Working with others', glyph:G.collab, options:[
+    {id:'individual', short:'Individual only', status:'no', text:'This is an individual assignment; collaboration is not permitted.'},
+    {id:'discuss', short:'Discuss, submit own', status:'cond', text:'You may discuss ideas with others, but must write and submit your own work.'},
+    {id:'group', short:'Group OK', status:'yes', text:'Collaborating and completing the work together is permitted.'}
+  ]},
+  {id:'reuse', label:'Reusing Prior Work', sub:'Existing or past work', glyph:G.reuse, options:[
+    {id:'none', short:'Not permitted', status:'no', text:'Copying or reusing previous work (yours or anyone else’s) is not permitted.'},
+    {id:'owncite', short:'Own work, cited', status:'cond', text:'You may build on your own prior work if you cite it clearly.'},
+    {id:'allowed', short:'Reuse OK', status:'yes', text:'Reusing existing or template work is permitted.'}
+  ]},
+  {id:'research', label:'Open-Book Research', sub:'Outside resources', glyph:G.research, options:[
+    {id:'closed', short:'Closed book', status:'no', text:'This is a closed-book assessment; outside resources are not permitted.'},
+    {id:'course', short:'Course materials only', status:'cond', text:'You may use course materials only (notes, textbook, the LMS).'},
+    {id:'open', short:'Open research', status:'yes', text:'Open-book research is permitted and encouraged — cite your sources.'}
+  ]},
+  {id:'home', label:'Where You Work', sub:'Location / conditions', glyph:G.home, options:[
+    {id:'proctored', short:'In class / proctored', status:'no', text:'Must be completed in class or under proctored conditions.'},
+    {id:'takehome', short:'Take-home OK', status:'yes', text:'Working from home / take-home completion is permitted.'}
+  ]},
+  {id:'ai', label:'AI Use', sub:'AI Assessment Scale (AIAS)', glyph:G.ai, isAI:true, options:[
+    {id:'l1', level:1, short:'1 · No AI', status:'aias', text:'You must not use AI at any point. Demonstrate your core skills and knowledge.'},
+    {id:'l2', level:2, short:'2 · AI Planning', status:'aias', text:'You may use AI for planning, idea development, and research. Your final submission should show how you developed and refined those ideas.'},
+    {id:'l3', level:3, short:'3 · AI Collaboration', status:'aias', text:'You may use AI to assist with drafting, refining, and evaluating your work. You must critically evaluate and modify any AI-generated content.'},
+    {id:'l4', level:4, short:'4 · Full AI', status:'aias', text:'You may use AI extensively, as you wish or as directed. Focus on directing AI to achieve your goals while demonstrating critical thinking.'},
+    {id:'l5', level:5, short:'5 · AI Exploration', status:'aias', text:'Use AI creatively to solve the task, potentially co-designing new approaches with your instructor.'}
+  ]},
+  {id:'cite', label:'Citation & Sources', sub:'Attribution rules', glyph:G.cite, options:[
+    {id:'required', short:'Citation required', status:'cond', text:'You must cite all sources using the required citation style.'},
+    {id:'notreq', short:'Not required', status:'yes', text:'Formal citations are not required for this assignment.'}
+  ]},
+  {id:'mode', label:'Individual vs. Group', sub:'Submission structure', glyph:G.mode, options:[
+    {id:'individual', short:'Individual', status:'info', text:'Complete and submit as an individual.'},
+    {id:'pairs', short:'Pairs', status:'info', text:'Work and submit in pairs.'},
+    {id:'group', short:'Group / team', status:'info', text:'Work and submit as a group or team.'}
+  ]},
+  {id:'device', label:'Devices & Calculators', sub:'Tools allowed', glyph:G.device, options:[
+    {id:'none', short:'No devices', status:'no', text:'No phones, calculators, or other devices may be used.'},
+    {id:'calc', short:'Calculator only', status:'cond', text:'Approved calculators only; no phones or internet-enabled devices.'},
+    {id:'open', short:'Devices OK', status:'yes', text:'You may use devices and the internet.'}
+  ]}
+];
+
+/* default included categories (the 6 OSU-style ones) */
+const DEFAULT_ON = ['help','collab','reuse','research','home','ai'];
+
+/* ---------------- Helpers ---------------- */
+function shade(hex,p){
+  const n=parseInt(hex.slice(1),16);let r=(n>>16)&255,g=(n>>8)&255,b=n&255;
+  const f=c=>Math.max(0,Math.min(255,Math.round(c*(100+p)/100)));
+  return '#'+[f(r),f(g),f(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+function chipSymbol(status){
+  if(status==='yes')  return '<path d="M72 20l5 5 9-11" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>';
+  if(status==='no')   return '<path d="M74 14l12 12M86 14l-12 12" stroke="#fff" stroke-width="4" stroke-linecap="round"/>';
+  if(status==='cond') return '<path d="M80 11.5v9" stroke="#fff" stroke-width="4" stroke-linecap="round"/><circle cx="80" cy="27" r="2.3" fill="#fff"/>';
+  if(status==='info') return '<path d="M80 18v8.5" stroke="#fff" stroke-width="4" stroke-linecap="round"/><circle cx="80" cy="12.5" r="2.3" fill="#fff"/>';
+  return '';
+}
+/* Build a badge SVG string. opt = option object, cat = category */
+function badgeSVG(cat, opt, size){
+  let tile, ring, chipFill, chipInner, aria;
+  const glyph = (cat.glyph||'').replace(/var\(--tile\)/g, cat.isAI ? AIAS_COLORS[opt.level-1] : '#14213D');
+  if(cat.isAI){
+    tile = AIAS_COLORS[opt.level-1];
+    ring = shade(tile,-22);
+    chipFill = shade(tile,-22);
+    chipInner = '<text x="80" y="27" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="20" fill="#fff">'+opt.level+'</text>';
+    aria = cat.label+': AIAS level '+opt.level;
+  } else {
+    tile = '#14213D';
+    ring = STATUS[opt.status].color;
+    chipFill = STATUS[opt.status].color;
+    chipInner = chipSymbol(opt.status);
+    aria = cat.label+': '+STATUS[opt.status].label;
+  }
+  const ariaEsc=aria.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'');
+  return '<svg viewBox="0 0 100 100" width="'+size+'" height="'+size+'" role="img" aria-label="'+ariaEsc+'" xmlns="http://www.w3.org/2000/svg">'
+    +'<rect x="6" y="6" width="88" height="88" rx="18" fill="'+tile+'"/>'
+    +'<g transform="translate(50,52) scale(2.0) translate(-12,-12)">'+glyph+'</g>'
+    +'<rect x="6" y="6" width="88" height="88" rx="18" fill="none" stroke="'+ring+'" stroke-width="5"/>'
+    +'<circle cx="80" cy="20" r="15" fill="'+chipFill+'" stroke="#fff" stroke-width="3"/>'
+    +chipInner
+    +'</svg>';
+}
+function statusLabel(cat,opt){ return cat.isAI ? ('AIAS Level '+opt.level) : STATUS[opt.status].label; }
+function statusColor(cat,opt){ return cat.isAI ? AIAS_COLORS[opt.level-1] : STATUS[opt.status].color; }
+
+/* ---------------- State ---------------- */
+const state = {};
+CAT.forEach(c=>state[c.id]={on:DEFAULT_ON.includes(c.id), opt:c.options[0].id});
+
+/* ---------------- Builder UI ---------------- */
+const catList = document.getElementById('cat-list');
+function renderCatCards(){
+  catList.innerHTML='';
+  CAT.forEach(cat=>{
+    const s=state[cat.id];
+    const card=document.createElement('div');
+    card.className='cat-card'+(s.on?'':' off');
+    const head=document.createElement('div');
+    head.className='cat-head';
+    const firstOpt=cat.options.find(o=>o.id===s.opt)||cat.options[0];
+    head.innerHTML='<div class="mini">'+badgeSVG(cat,firstOpt,42)+'</div>'
+      +'<div class="t"><b>'+cat.label+'</b><span>'+cat.sub+'</span></div>'
+      +'<label class="toggle"><input type="checkbox" '+(s.on?'checked':'')+' data-on="'+cat.id+'"> Include</label>';
+    card.appendChild(head);
+    const pills=document.createElement('div');
+    pills.className='pills';
+    cat.options.forEach(o=>{
+      const b=document.createElement('button');
+      b.className='pill'+(cat.isAI?' ai':'')+(o.id===s.opt?' sel':'');
+      if(cat.isAI && o.id===s.opt){ b.style.background=AIAS_COLORS[o.level-1]; }
+      b.textContent=o.short;
+      b.dataset.cat=cat.id; b.dataset.opt=o.id;
+      pills.appendChild(b);
+    });
+    card.appendChild(pills);
+    catList.appendChild(card);
+  });
+}
+catList.addEventListener('click',e=>{
+  const p=e.target.closest('.pill');
+  if(p){ state[p.dataset.cat].opt=p.dataset.opt; renderCatCards(); renderPreview(); }
+});
+catList.addEventListener('change',e=>{
+  const t=e.target.closest('[data-on]');
+  if(t){ state[t.dataset.on].on=t.checked; renderCatCards(); renderPreview(); }
+});
+
+/* ---------------- Preview + export ---------------- */
+function selected(){ return CAT.filter(c=>state[c.id].on).map(c=>({cat:c,opt:c.options.find(o=>o.id===state[c.id].opt)})); }
+
+function renderPreview(){
+  const pc=document.getElementById('previewCard');
+  const items=selected();
+  const name=document.getElementById('aname').value.trim();
+  const title=name?('Guidelines: '+name):'Assignment Guidelines';
+  if(items.length===0){
+    pc.outerHTML='<div class="preview-card" id="previewCard"><div class="empty">Toggle on at least one category to preview your badge set.</div></div>';
+    document.getElementById('codeOut').value='';
+    return;
+  }
+  let rows='';
+  items.forEach(({cat,opt})=>{
+    rows+='<div class="row"><div class="b">'+badgeSVG(cat,opt,56)+'</div>'
+      +'<div class="txt"><b>'+cat.label+'</b>'
+      +'<div class="st" style="color:'+statusColor(cat,opt)+'">'+statusLabel(cat,opt)+'</div>'
+      +'<p>'+opt.text+'</p></div></div>';
+  });
+  pc.outerHTML='<div class="preview-card" id="previewCard">'
+    +'<div class="pc-head">'+umMark(20)+title+'</div>'
+    +'<div class="pc-body">'+rows+'</div>'
+    +'<div class="pc-foot">University of Mississippi · Academic Integrity Icons. AI guidance based on the AI Assessment Scale (AIAS), CC BY-NC-SA 4.0.</div>'
+    +'</div>';
+  document.getElementById('codeOut').value=buildEmbed(items,title);
+}
+function umMark(px){
+  return '<svg width="'+px+'" height="'+px+'" viewBox="0 0 100 100" style="vertical-align:middle"><rect x="6" y="6" width="88" height="88" rx="16" fill="#fff"/><text x="50" y="66" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="40" fill="#14213D">UM</text></svg> ';
+}
+
+/* The exported snippet: inline styles + inline SVG only */
+function buildEmbed(items,title){
+  const A='font-family:Arial,Helvetica,sans-serif;';
+  let rows='';
+  items.forEach(({cat,opt},i)=>{
+    const border = i<items.length-1 ? 'border-bottom:1px solid #e4e7ec;' : '';
+    rows+='<tr><td style="padding:12px 0 12px 0;vertical-align:top;width:64px;'+border+'">'+badgeSVG(cat,opt,52)+'</td>'
+      +'<td style="padding:12px 0 12px 12px;vertical-align:top;'+border+'">'
+      +'<div style="'+A+'font-weight:700;color:#14213D;font-size:15px;">'+cat.label+'</div>'
+      +'<div style="'+A+'font-weight:700;font-size:11px;letter-spacing:.4px;text-transform:uppercase;color:'+statusColor(cat,opt)+';margin:2px 0;">'+statusLabel(cat,opt)+'</div>'
+      +'<div style="'+A+'color:#3a4250;font-size:14px;">'+opt.text+'</div>'
+      +'</td></tr>';
+  });
+  return '<div style="max-width:680px;border:2px solid #14213D;border-radius:12px;overflow:hidden;'+A+'">'
+    +'<div style="background:#14213D;color:#ffffff;padding:12px 16px;font-size:17px;font-weight:700;">'+title+'</div>'
+    +'<table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;padding:0 16px;"><tbody style="display:table;width:calc(100% - 32px);margin:0 16px;">'+rows+'</tbody></table>'
+    +'<div style="background:#f8f8f8;color:#7b8493;font-size:11px;padding:8px 16px;border-top:1px solid #e4e7ec;">University of Mississippi &middot; Academic Integrity Icons. AI guidance based on the AI Assessment Scale (AIAS), CC BY-NC-SA 4.0.</div>'
+    +'</div>';
+}
+
+/* ---------------- Buttons ---------------- */
+document.getElementById('aname').addEventListener('input',renderPreview);
+document.getElementById('copyBtn').addEventListener('click',function(){
+  const ta=document.getElementById('codeOut'); ta.select();
+  navigator.clipboard.writeText(ta.value).then(()=>{this.textContent='Copied ✓';setTimeout(()=>this.textContent='Copy HTML for Blackboard',1600);})
+  .catch(()=>{document.execCommand('copy');this.textContent='Copied ✓';setTimeout(()=>this.textContent='Copy HTML for Blackboard',1600);});
+});
+document.getElementById('dlBtn').addEventListener('click',function(){
+  const html='<!DOCTYPE html><html><head><meta charset="utf-8"><title>Assignment Guidelines</title></head><body style="margin:24px;">'+document.getElementById('codeOut').value+'<script>
+/* SCORM 1.2 completion wrapper (no-op outside an LMS) */
+(function(){function find(w,d){d=d||0;if(!w||d>8)return null;if(w.API)return w.API;try{if(w.parent&&w.parent!==w)return find(w.parent,d+1);}catch(e){}return null;}
+var api=find(window)||(window.opener?find(window.opener):null);
+if(api){try{api.LMSInitialize("");api.LMSSetValue("cmi.core.lesson_status","completed");api.LMSCommit("");window.addEventListener("pagehide",function(){try{api.LMSFinish("");}catch(e){}});}catch(e){}}})();
+</script>
+</body></html>';
+  download('assignment-guidelines.html', html, 'text/html');
+});
+document.getElementById('pngBtn').addEventListener('click',function(){
+  const card=document.getElementById('previewCard');
+  const w=card.offsetWidth, h=card.offsetHeight;
+  const data='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'"><foreignObject width="100%" height="100%"><div xmlns="http://www.w3.org/1999/xhtml" style="background:#fff">'+new XMLSerializer().serializeToString(card)+'</div></foreignObject></svg>';
+  const img=new Image();
+  img.onload=function(){
+    const c=document.createElement('canvas');c.width=w*2;c.height=h*2;const ctx=c.getContext('2d');ctx.scale(2,2);ctx.fillStyle='#fff';ctx.fillRect(0,0,w,h);ctx.drawImage(img,0,0);
+    c.toBlob(b=>{const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='assignment-guidelines.png';a.click();URL.revokeObjectURL(u);});
+  };
+  img.onerror=function(){alert('PNG export is blocked in this browser. Use the SVG downloads on the Reference tab, or screenshot the preview.');};
+  img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(data);
+});
+function download(name,content,type){
+  const b=new Blob([content],{type:type});const u=URL.createObjectURL(b);
+  const a=document.createElement('a');a.href=u;a.download=name;a.click();URL.revokeObjectURL(u);
+}
+
+/* ---------------- Reference tab ---------------- */
+function renderReference(){
+  const wrap=document.getElementById('ref-list'); wrap.innerHTML='';
+  CAT.forEach(cat=>{
+    const block=document.createElement('div'); block.className='ref-cat';
+    const sampleOpt=cat.options[0];
+    block.innerHTML='<h3>'+badgeSVG(cat,sampleOpt,30)+cat.label+'</h3><div class="desc">'+cat.sub+(cat.isAI?' — the five AIAS levels':'')+'</div>';
+    const grid=document.createElement('div'); grid.className='ref-grid';
+    cat.options.forEach(o=>{
+      const item=document.createElement('div'); item.className='ref-item';
+      item.innerHTML=badgeSVG(cat,o,84)
+        +'<div class="lab">'+o.short+'</div>'
+        +'<div class="st" style="color:'+statusColor(cat,o)+'">'+statusLabel(cat,o)+'</div>'
+        +'<p>'+o.text+'</p>'
+        +'<button class="dl" data-cat="'+cat.id+'" data-opt="'+o.id+'">Download SVG</button>';
+      grid.appendChild(item);
+    });
+    block.appendChild(grid); wrap.appendChild(block);
+  });
+}
+document.getElementById('ref-list').addEventListener('click',e=>{
+  const b=e.target.closest('.dl'); if(!b) return;
+  const cat=CAT.find(c=>c.id===b.dataset.cat); const opt=cat.options.find(o=>o.id===b.dataset.opt);
+  const svg='<?xml version="1.0" encoding="UTF-8"?>\n'+badgeSVG(cat,opt,256);
+  download('um-'+cat.id+'-'+opt.id+'.svg', svg, 'image/svg+xml');
+});
+
+/* ---------------- Tabs ---------------- */
+document.querySelectorAll('nav.tabs button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+/* ---------------- Init ---------------- */
+renderCatCards();
+renderPreview();
+renderReference();
+</script>
+</body>
+</html>
