@@ -12,13 +12,15 @@
     <organization identifier="ORG_UM">
       <title>UM Academic Integrity Icons</title>
       <item identifier="ITEM_UM" identifierref="RES_UM" isvisible="true">
-        <title>Academic Integrity Icons and Assignment Guidelines</title>
+        <title>What the Academic Integrity Icons Mean</title>
       </item>
     </organization>
   </organizations>
   <resources>
     <resource identifier="RES_UM" type="webcontent" adlcp:scormtype="sco" href="index.html">
       <file href="index.html"/>
+      <file href="assets/icons.js"/>
+      <file href="assets/app.css"/>
     </resource>
   </resources>
 </manifest>

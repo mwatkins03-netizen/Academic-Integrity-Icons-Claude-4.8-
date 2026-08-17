@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assignment Guidelines &middot; UM Academic Integrity Icons</title>
+<meta name="description" content="What you may and may not do on this assignment, shown with the University of Mississippi academic integrity icons.">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="assets/app.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2314213D'/%3E%3Ctext x='50' y='68' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='46' fill='%23fff'%3EUM%3C/text%3E%3C/svg%3E">
+</head>
+<body class="student">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="brand">
+  <div class="wrap">
+    <div class="crest" aria-hidden="true">
+      <svg width="46" height="46" viewBox="0 0 100 100">
+        <rect x="4" y="4" width="92" height="92" rx="18" fill="#fff"/>
+        <rect x="4" y="4" width="92" height="92" rx="18" fill="none" stroke="#CE1126" stroke-width="5"/>
+        <text x="50" y="64" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-weight="700" font-size="38" fill="#14213D">UM</text>
+      </svg>
+    </div>
+    <div>
+      <h1>Assignment Guidelines</h1>
+      <p>What you may and may not do on this assignment.</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  <div class="page-actions">
+    <button class="btn ghost small" id="printBtn">Print this page</button>
+    <a class="btn ghost small" href="gallery.html">What do these icons mean?</a>
+  </div>
+  <div id="setHost" class="set-card"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    University of Mississippi &middot; Academic Integrity Icons.
+    AI guidance adapted from the <a href="https://aiassessmentscale.com/" target="_blank" rel="noopener">AI Assessment Scale (AIAS)</a>, CC BY-NC-SA 4.0.
+  </div>
+</footer>
+
+<script src="assets/icons.js"></script>
+<script>
+(function(){
+'use strict';
+var U = window.UMIcons;
+var parsed = U.decodeSet(location.search);
+
+if (parsed.embed) document.body.classList.add('embed');
+
+var host = document.getElementById('setHost');
+var titleText = parsed.title ? ('Guidelines: ' + parsed.title) : 'Assignment Guidelines';
+document.title = titleText + ' · UM Academic Integrity Icons';
+
+if (!parsed.items.length) {
+  host.innerHTML = '<div class="empty">This link doesn\'t contain a badge set yet.<br>'
+    + '<a href="index.html" style="display:inline-block;margin-top:10px">Build one on the icon builder &rarr;</a></div>';
+} else {
+  if (parsed.title) {
+    document.querySelector('header.brand h1').textContent = parsed.title;
+    document.querySelector('header.brand p').textContent = 'What you may and may not do on this assignment.';
+  }
+  var rows = '';
+  parsed.items.forEach(function(it){
+    rows += '<div class="row"><div class="b">' + U.badgeSVG(it.cat, it.opt, 56) + '</div>'
+      + '<div class="txt"><b>' + U.esc(it.cat.label) + '</b>'
+      + '<div class="st" style="color:' + U.statusColor(it.cat, it.opt) + '">' + U.esc(U.statusLabel(it.cat, it.opt)) + '</div>'
+      + '<p>' + U.esc(it.opt.text) + '</p></div></div>';
+  });
+  host.innerHTML = '<div class="preview-card">'
+    + '<div class="pc-head"><span>' + U.esc(titleText) + '</span></div>'
+    + '<div class="pc-body">' + rows + '</div>'
+    + '<div class="pc-foot">' + U.ATTRIBUTION + '</div>'
+    + '</div>';
+}
+
+document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
+U.watchHeight();
+})();
+</script>
+</body>
+</html>
